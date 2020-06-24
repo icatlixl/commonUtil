@@ -1,9 +1,6 @@
 com.icat.annotation
 com.icat.autoconfigure
-com.icat.bean
 com.icat.common
 com.icat.common.util
 com.icat.common.util.excel
 com.icat.common.util.json
-com.icat.controller
-com.icat.service
