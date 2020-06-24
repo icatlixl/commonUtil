@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="icon" href="monitor/img/favicon.ico" type="image/x-icon" />
+<title>服务监控</title>
+</head>
+<style>
+	h4{
+		padding: 3px;
+		margin: 0px;
+	}
+	td{
+		padding-left: 103px;  
+	}
+</style>
+<body>
+	<h4>总内存:<span id="totalMemory"></span></h4>
+	<h4>内存使用:<span id="useMemory"></span></h4>
+	<h4>虚拟内存使用:<span id="swapUsed"></span></h4>
+	<h4>虚拟总内存:<span id="swapTotal"></span></h4>
+	<h4>系统运行时长:<span id="runTime"></span></h4>
+	<h4>cpu使用比例（用户）:<span id="cpuUser"></span></h4>
+	<h4>cpu使用比例（系统）:<span id="cpuSystem"></span></h4>
+	<h4>cpu空闲比例:<span id="cpuIdle"></span></h4>
+	<h4>阀值:<span id="steal"></span></h4>
+	<h4>进程数量:<span id="processe"></span></h4>
+	<h4>线程数量:<span id="threads"></span></h4>
+	<h4>磁盘空闲大小:<span id="ioFree"></span></h4>
+	<h4>磁盘使用大小:<span id="ioUse"></span></h4>
+	<h4>总磁盘大小:<span id="ioTotal"></span></h4>
+	<h4>磁盘使用比例:<span id="ioBfb"></span></h4>
+	<hr>
+	<table id="processes">
+		<tr>
+			<td>线程名称</td>
+			<td>PID</td>
+			<td>CPU</td>
+			<td>MEM</td>
+			<td>VSZ</td>
+			<td>RSS</td>
+		</tr>
+	</table>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	serverMonitorList();
+});
+function serverMonitorList() {
+	$.ajax({
+		url : "/server/monitor/list",
+		type : "get",
+		data : {},
+		dataType : "json",
+		success : function(json) {
+			if (json) {
+				$("#totalMemory").html(json.data.totalMemory);
+				$("#useMemory").html(json.data.useMemory);
+				$("#swapUsed").html(json.data.swapUsed);
+				$("#swapTotal").html(json.data.swapTotal);
+				$("#runTime").html(json.data.runTime);
+				$("#cpuUser").html(json.data.cpuUser);
+				$("#cpuSystem").html(json.data.cpuSystem);
+				$("#cpuIdle").html(json.data.cpuIdle);
+				$("#steal").html(json.data.steal);
+				$("#processe").html(json.data.processe);
+				$("#threads").html(json.data.threads);
+				$("#ioFree").html(json.data.ioFree);
+				$("#ioUse").html(json.data.ioUse);
+				$("#ioTotal").html(json.data.ioTotal);
+				$("#ioBfb").html(json.data.ioBfb);
+				var processes = json.data.processes;
+				for (var i = 0; i < processes.length; i++) {
+					$("#processes").append('<tr><td>'+processes[i].name+'</td><td>'+processes[i].pid+'</td><td>'+processes[i].cpu+'</td><td>'+processes[i].mem+'</td><td>'+processes[i].vsz+'</td><td>'+processes[i].rss+'</td></tr>')
+				}
+			}
+		}
+	});
+};
+</script>
+</html>
