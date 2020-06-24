@@ -1,0 +1,37 @@
+{
+  "hints": [],	
+  "properties": [
+    {
+      "sourceType": "com.icat.autoconfigure.MailProperties",
+      "name": "icatmail.mail-user",
+      "description": "配置邮箱账号",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.icat.autoconfigure.MailProperties",
+      "name": "icatmail.mail-password",
+      "description": "配置邮箱密码",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.icat.autoconfigure.MailProperties",
+      "name": "icatmail.mail-smtp-host",
+      "description": "配置邮箱发送服务，例子：QQ：smtp.exmail.qq.com；",
+      "defaultValue":"smtp.exmail.qq.com",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.icat.autoconfigure.MailProperties",
+      "name": "icatmail.props-map",
+      "description": "邮箱预留配置;详细配置可见：https://blog.techauch.com/get/detail/204",
+      "type": "java.util.HashMap"
+    }
+  ],
+  "groups": [
+    {
+      "sourceType": "com.icat.autoconfigure.MailProperties",
+      "name": "icatmail",
+      "type": "com.icat.autoconfigure.MailProperties"
+    }
+  ]
+}

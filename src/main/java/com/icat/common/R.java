@@ -1,9 +1,7 @@
 package com.icat.common;
 
 /**
- * author:icat  
- * blog:https://blog.techauch.com
- * 返回结果集
+ * author:icat blog:https://blog.techauch.com 返回结果集
  */
 public class R<T> {
 
@@ -13,16 +11,13 @@ public class R<T> {
 
 	private R(T data) {
 		this.retCode = 0;
-		this.message = CodeMsg.SUCCESS.getMessage();
+		this.message = "OK";
 		this.data = data;
 	}
 
-	private R(CodeMsg cm) {
-		if (cm == null) {
-			return;
-		}
-		this.retCode = cm.getRetCode();
-		this.message = cm.getMessage();
+	private R(int retCode, String message) {
+		this.retCode = retCode;
+		this.message = message;
 	}
 
 	/**
@@ -39,52 +34,24 @@ public class R<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> R<T> success() {
-		return (R<T>) success("");
-	}
-
-	/**
-	 * 添加失败
-	 */
-	public static <T> R<T> errorAdd() {
-		return new R<T>(CodeMsg.ERROR_ADD);
-	}
-
-	/**
-	 * 删除失败
-	 */
-	public static <T> R<T> errorDel() {
-		return new R<T>(CodeMsg.ERROR_DEL);
-	}
-
-	/**
-	 * 修改失败
-	 */
-	public static <T> R<T> errorUpdate() {
-		return new R<T>(CodeMsg.ERROR_UPDATE);
-	}
-
-	/**
-	 * 操作失败
-	 */
-	public static <T> R<T> error() {
-		return new R<T>(CodeMsg.ERROR);
+		return (R<T>) success("it's ok");
 	}
 
 	/**
 	 * 失败时候的调用
 	 * 
 	 */
-	public static <T> R<T> error(CodeMsg cm) {
-		return new R<T>(cm);
+	public static <T> R<T> error(int retCode, String message) {
+		return new R<T>(retCode, message);
 	}
 
 	/**
 	 * 失败时候的调用,扩展消息参数
 	 * 
 	 */
-	public static <T> R<T> error(CodeMsg cm, String msg) {
-		cm.setMessage(cm.getMessage() + "--" + msg);
-		return new R<T>(cm);
+	public static <T> R<T> error(int retCode, String message, String msg) {
+		message = (message + "--" + msg);
+		return new R<T>(retCode, message);
 	}
 
 	public T getData() {
