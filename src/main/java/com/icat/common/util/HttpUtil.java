@@ -13,8 +13,6 @@ import java.util.Map.Entry;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
-import org.springframework.util.StringUtils;
-
 public class HttpUtil {
 
 	private static final String DEFAULT_CHARSET = "UTF-8";
@@ -147,7 +145,7 @@ public class HttpUtil {
 			}
 			url.append(entry.getKey()).append("=");
 			String value = entry.getValue();
-			if (!StringUtils.isEmpty(value)) {
+			if (StrKit.notBlank(value)) {
 				url.append(URLEncoder.encode(value, DEFAULT_CHARSET));
 			}
 		}

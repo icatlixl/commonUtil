@@ -253,4 +253,60 @@ public class StrKit {
 		}
 		return list;
 	}
+
+	public static String capitalize(final String str) {
+		int strLen;
+		if (str == null || (strLen = str.length()) == 0) {
+			return str;
+		}
+
+		final int firstCodepoint = str.codePointAt(0);
+		final int newCodePoint = Character.toTitleCase(firstCodepoint);
+		if (firstCodepoint == newCodePoint) {
+			// already capitalized
+			return str;
+		}
+
+		final int newCodePoints[] = new int[strLen]; // cannot be longer than the char array
+		int outOffset = 0;
+		newCodePoints[outOffset++] = newCodePoint; // copy the first codepoint
+		for (int inOffset = Character.charCount(firstCodepoint); inOffset < strLen;) {
+			final int codepoint = str.codePointAt(inOffset);
+			newCodePoints[outOffset++] = codepoint; // copy the remaining ones
+			inOffset += Character.charCount(codepoint);
+		}
+		return new String(newCodePoints, 0, outOffset);
+	}
+
+	public static <T> T notNullException(final T object, final String message, final Object... values) {
+		if (object == null) {
+			throw new NullPointerException(String.format(message, values));
+		}
+		return object;
+	}
+
+	public static <T extends CharSequence> T notBlankException(final T chars, final String message,
+			final Object... values) {
+		if (chars == null) {
+			throw new NullPointerException(String.format(message, values));
+		}
+		if (!StrKit.notNull(chars)) {
+			throw new IllegalArgumentException(String.format(message, values));
+		}
+		return chars;
+	}
+
+	public static String substringAfter(final String str, final String separator) {
+		if (StrKit.isBlank(str)) {
+			return str;
+		}
+		if (separator == null) {
+			return "";
+		}
+		final int pos = str.indexOf(separator);
+		if (pos == -1) {
+			return "";
+		}
+		return str.substring(pos + separator.length());
+	}
 }
